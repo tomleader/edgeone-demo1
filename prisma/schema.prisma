@@ -1,0 +1,52 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+  relationMode  = "prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model l_user_attributes {
+  attribute_id    BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  user_id         Int      @db.UnsignedInt
+  attribute_name  String   @db.VarChar(64)
+  attribute_value String   @default("0") @db.VarChar(255)
+  created_at      DateTime @default(now()) @db.DateTime(0)
+  updated_at      DateTime @default(now()) @db.DateTime(0)
+
+  @@unique([user_id, attribute_name], map: "uk_user_attr")
+  @@index([attribute_name], map: "idx_attr_name")
+  @@index([user_id], map: "idx_user_id")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model l_user_progress {
+  progress_id    BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  user_id        Int       @db.UnsignedInt
+  progress_key   String    @db.VarChar(128)
+  progress_value String?   @db.Text
+  completed_at   DateTime? @db.DateTime(0)
+  created_at     DateTime  @default(now()) @db.DateTime(0)
+  updated_at     DateTime  @default(now()) @db.DateTime(0)
+
+  @@unique([user_id, progress_key], map: "uk_user_progress")
+  @@index([progress_key], map: "idx_progress_key")
+  @@index([user_id], map: "idx_user_id")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model l_user {
+  user_id    Int       @id @default(autoincrement()) @db.UnsignedInt
+  username   String    @unique(map: "uk_username") @db.VarChar(64)
+  password   String    @db.VarChar(255)
+  created_at DateTime  @default(now()) @db.DateTime(0)
+  last_login DateTime? @db.DateTime(0)
+  avatar     String?   @db.VarChar(255)
+  nickname   String?   @db.VarChar(255)
+
+  @@index([created_at], map: "idx_created_at")
+}
