@@ -26,17 +26,13 @@
 
 import { PrismaClient } from '@prisma/client'
 import { PrismaMariaDb } from '@prisma/adapter-mariadb'
-import mariadb from 'mariadb'
 
 declare global {
   var prisma: PrismaClient | undefined
 }
 
-// 创建连接池
-const pool = mariadb.createPool(process.env.DATABASE_URL!)
-
-// 创建 adapter
-const adapter = new PrismaMariaDb(pool)
+// 直接传入连接字符串，不需要手动创建 pool
+const adapter = new PrismaMariaDb(process.env.DATABASE_URL!)
 
 let prisma: PrismaClient
 
@@ -50,4 +46,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export default prisma
+
 
