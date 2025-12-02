@@ -25,18 +25,18 @@
 
 
 import { PrismaClient } from '@prisma/client'
-import { PrismaMysql } from '@prisma/adapter-mysql'
-import mysql from 'mysql2/promise'
+import { PrismaMariaDB } from '@prisma/adapter-mariadb'
+import mariadb from 'mariadb'
 
 declare global {
   var prisma: PrismaClient | undefined
 }
 
-// 创建 MySQL 连接池
-const pool = mysql.createPool(process.env.DATABASE_URL!)
+// 创建连接池
+const pool = mariadb.createPool(process.env.DATABASE_URL!)
 
-// 创建 Prisma adapter
-const adapter = new PrismaMysql(pool)
+// 创建 adapter
+const adapter = new PrismaMariaDB(pool)
 
 let prisma: PrismaClient
 
@@ -50,3 +50,4 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export default prisma
+
