@@ -25,7 +25,7 @@
 
 
 import { PrismaClient } from '@prisma/client'
-import { PrismaMariaDB } from '@prisma/adapter-mariadb'
+import { PrismaMariaDb } from '@prisma/adapter-mariadb'
 import mariadb from 'mariadb'
 
 declare global {
@@ -36,7 +36,7 @@ declare global {
 const pool = mariadb.createPool(process.env.DATABASE_URL!)
 
 // 创建 adapter
-const adapter = new PrismaMariaDB(pool)
+const adapter = new PrismaMariaDb(pool)
 
 let prisma: PrismaClient
 
