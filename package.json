@@ -20,7 +20,6 @@
     "@ant-design/icons": "^6.1.0",
     "@ant-design/nextjs-registry": "^1.2.0",
     "@gsap/react": "^2.1.2",
-    "@prisma/client": "6.14.0",
     "antd": "^6.0.0-alpha.5",
     "axios": "^1.13.2",
     "bcryptjs": "^3.0.3",
@@ -41,6 +40,7 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@prisma/client": "6.14.0",
     "prisma": "6.14.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
